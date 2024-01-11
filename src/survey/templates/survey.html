@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Survey</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/survey-jquery/1.8.14/survey.jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/survey-jquery/1.8.14/survey.min.css" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div id="surveyContainer" style="display:inline-block;width:100%;"></div>
+
+    {{ object.survey_template.json|json_script:"surveyjson" }}
+    <script>
+        const csrftoken = '{{ csrf_token }}';
+
+        Survey.StylesManager.applyTheme("bootstrap");
+
+        var surveyJSON = JSON.parse(document.getElementById('surveyjson').textContent);
+
+        function sendDataToServer(survey) {
+            const location = $(window.location).attr('href');
+            fetch(
+                location,
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'answers': survey.data
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    }
+                }
+            );
+        }
+
+        var survey = new Survey.Model(surveyJSON);
+        survey.onComplete.add(sendDataToServer);
+
+        // get language to use for survey
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const locale = urlParams.get('locale')
+
+        if (locale && locale != "") {
+            survey.locale = locale;
+        } else {
+            survey.locale = "en";
+        }
+        $("#surveyContainer").Survey({model: survey});
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+/* Import fonts */
+@font-face {
+  font-family: 'Lexend-Bold';
+  src: url('../fonts/Lexend-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('truetype');         
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../fonts/Roboto-Medium.ttf') format('truetype');         
+}
+
+/* Overall page styles */
+.sv_main .sv_container {
+  color: #07000E;          
+  font-size: 16px;
+  font-family: 'Roboto';
+  line-height: 16px !important;
+}
+
+h5 {
+  font-family: 'Roboto-Medium';
+  font-size: 16px;
+}
+
+.alert-danger, .has-error .radio, .has-error .checkbox {
+  color: #CC0000;
+  background-color: #f4f4f4;
+  border: 0;
+}
+
+.alert {
+  padding: 0;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.has-error .form-control {
+  border-color: #CC0000 !important;
+}
+
+.small {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.sv_main .sv_container .panel-body.card-block .sv_row .sv_qstn .radio label, .sv_main .sv_container .panel-body.card-block .sv_row .sv_qstn .checkbox label {
+  line-height: 16px !important;
+}
+
+.sv_qcbx .checkbox-material {
+  margin-right: 0 !important;
+}
+
+.panel-body {
+  padding-top: 20px;
+}
+
+.sv_bootstrap_css .sv_qstn fieldset {
+  margin-top: 8px;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 34px;
+  margin-left: 16px;
+}
+
+label {
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: #E5FF00;
+  color: #07000E;
+  border:rgba(0, 0, 0, 0.075)
+}
+
+.progress {
+  box-shadow: none;
+  border: 1px solid lightgray;
+}
+
+/* Button styles */
+.sv_main input[type="button"] {
+  color: #E5FF00;
+  background-color: #07000E;
+  font-family: 'Lexend-Bold';
+  padding-top: 3px;
+  border-radius: 8px;
+}
+
+.sv_main input[type="button"]:hover {
+  background-color: #07000E;
+}
+
+@media only screen and (max-width: 480px) {
+  .sv_main input[type="button"] {
+      width: 90%;
+      height: 56px;
+      font-size: 24px;
+      margin-top: 16px;
+  }
+
+  .panel-footer, .card-footer {
+      text-align: center;
+  }
+
+  .panel-footer {
+    border-top: 0;
+  }
+}
+
+/* styles for images */
+.sv_imgsel .sv_q_imagepicker_inline {
+  margin-right: .5em !important;
+}
+
+img {
+  width: 100%;
+}
+
+.sv_main.sv_main .sv_q_imgsel.checked label > div {
+  background-color: #E5FF00 !important;
+  border: 1px solid #07000E;
+}
+
+/* text and select input styles */
+.sv_main input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"])::placeholder, .sv_main select {
+  color: rgba(7, 0, 14, 0.5);
+}
+
+.sv_main input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):focus, .sv_main select:focus {
+  border: 1px solid #07000E;
+}
+
+.sv_main input:not([type="button"]):not([type="reset"]):not([type="submit"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):focus::placeholder {
+  color: transparent;
+}
+
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(7, 0, 14, 0.6);
+}
+
+.form-control {
+  height: 40px;
+}

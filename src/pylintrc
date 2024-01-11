@@ -1,0 +1,36 @@
+[MASTER]
+
+ignore = migrations,docs/conf.py,vehicle_api/management/commands/seed_data_make_dev_vehicles.py,vehicle_api/management/commands/seed_data.py
+load-plugins=pylint_django
+disable=no-member,missing-module-docstring,too-few-public-methods,arguments-differ,unsupported-binary-operation
+
+[BASIC]
+
+# Allow django's urlpatterns, and our log preference
+const-rgx = (([A-Z_][A-Z0-9_]*)|(__.*__)|log|urlpatterns|application|router|tune|bouncer)$
+attr-rgx = [a-z_][a-z0-9_]{2,30}|id$
+
+
+[TYPECHECK]
+
+ignored-modules = ujson
+generated-members=status_code,data,id,is_staff,objects,MultipleObjectsReturned,is_authenticated,__unicode__,add,componentcertificate_set,DoesNotExist,list
+
+
+[DESIGN]
+max-parents = 15
+max-branches = 15
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=16
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+
+# Ignore imports when computing similarities.
+ignore-imports=yes
