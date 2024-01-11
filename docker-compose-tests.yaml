@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+
+  db:
+    container_name: db
+    image: postgres:13.0
+    restart: always
+    environment:
+      POSTGRES_DB: 'db'
+      POSTGRES_USER: 'postgres_user'
+      POSTGRES_PASSWORD: 'postgres_password'
+    volumes:
+      - db:/var/lib/postgresql
+
+  test:
+    container_name: test
+    build:
+      context: ./src/
+      dockerfile: ./Dockerfile
+    command: bash -c "sleep 2 && ./test.sh"
+    volumes:
+      - ./src:/src/
+      - ./artifacts:/src/artifacts
+    depends_on:
+      - db
+    links:
+      - db:database
+    environment:
+      DATABASE_URL: postgresql://postgres_user:postgres_password@db:5432/db
+
+# Names our volume
+volumes:
+  db:

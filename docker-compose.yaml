@@ -1,0 +1,78 @@
+version: '3.7'
+services:
+
+  db:
+    container_name: db
+    image: postgres:13.0
+    restart: always
+    environment:
+      POSTGRES_DB: 'db'
+      POSTGRES_USER: 'postgres_user'
+      POSTGRES_PASSWORD: 'postgres_password'
+    volumes:
+      - db:/var/lib/postgresql
+
+  surveyor:
+    container_name: surveyor_server
+    build:
+      context: ./src/
+      dockerfile: ./Dockerfile
+    environment:
+      PORT: 8088
+      DEBUG: "true"
+      SITE_PROTOCOL: http
+      DATABASE_URL: postgresql://postgres_user:postgres_password@db:5432/db
+      CONFIDENTIAL_CLIENT_ID: mtbYp3yUF1k0Sl5o0lB0a4RhcWxLPQLMAtyiJhUq
+      CONFIDENTIAL_CLIENT_SECRET: b5kO58V7XlIWyZfhSCK8n9hTi2RiYsy3KB5ZWJ6s6oLJ8Hy6SrIOuRBRS6pman3hVwMD5PIGShCfbGsGcyoVxdCVxszSwDX1mYcCOJk51SxdS1aPWmLU9dygpIxza6a5
+    depends_on:
+      - db
+    links:
+      - db:database
+    ports:
+      - 8088:8088
+    volumes:
+      - ./src:/src/
+      - ./dev_data:/dev_data/
+    command: "./manage.py runserver 0.0.0.0:8088"
+
+  db_setup:
+    container_name: db_setup
+    build:
+      context: ./src/
+      dockerfile: ./Dockerfile
+    environment:
+      DATABASE_URL: postgresql://postgres_user:postgres_password@db:5432/db
+    depends_on:
+      - db
+    links:
+      - db:database
+    volumes:
+      - ./src:/src/
+      - ./dev_data:/dev_data/
+    command: > 
+      bash -c '
+      sleep 5 &&
+      ./manage.py migrate && 
+      ./manage.py loaddata /dev_data/surveyor/01_sites.yaml &&
+      ./manage.py loaddata /dev_data/surveyor/02_auth.yaml &&
+      ./manage.py loaddata /dev_data/surveyor/03_surveys.yaml'
+      
+#  test:
+#    container_name: test
+#    build:
+#      context: ./src/
+#      dockerfile: ./Dockerfile
+#    command: ./test.sh
+#    volumes:
+#      - ./src:/src/
+#      - ./artifacts:/src/artifacts
+#    depends_on:
+#      - db
+#    links:
+#      - db:database
+#    environment:
+#      DATABASE_URL: postgresql://postgres_user:postgres_password@db:5432/db
+#
+# Names our volume
+volumes:
+  db:
