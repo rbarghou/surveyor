@@ -1,0 +1,585 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /surveys/:
+    get:
+      operationId: listSurveys
+      description: SurveyViewSet
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: survey_template
+        required: false
+        in: query
+        description: survey_template
+        schema:
+          type: string
+      - name: user_uuid
+        required: false
+        in: query
+        description: user_uuid
+        schema:
+          type: string
+      - name: complete
+        required: false
+        in: query
+        description: complete
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Survey'
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:read:'
+    post:
+      operationId: createSurvey
+      description: SurveyViewSet
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:write:'
+  /surveys/{id}/:
+    get:
+      operationId: retrieveSurvey
+      description: SurveyViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey.
+        schema:
+          type: string
+      - name: survey_template
+        required: false
+        in: query
+        description: survey_template
+        schema:
+          type: string
+      - name: user_uuid
+        required: false
+        in: query
+        description: user_uuid
+        schema:
+          type: string
+      - name: complete
+        required: false
+        in: query
+        description: complete
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:read:'
+    put:
+      operationId: updateSurvey
+      description: SurveyViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey.
+        schema:
+          type: string
+      - name: survey_template
+        required: false
+        in: query
+        description: survey_template
+        schema:
+          type: string
+      - name: user_uuid
+        required: false
+        in: query
+        description: user_uuid
+        schema:
+          type: string
+      - name: complete
+        required: false
+        in: query
+        description: complete
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:write:'
+    patch:
+      operationId: partialUpdateSurvey
+      description: SurveyViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey.
+        schema:
+          type: string
+      - name: survey_template
+        required: false
+        in: query
+        description: survey_template
+        schema:
+          type: string
+      - name: user_uuid
+        required: false
+        in: query
+        description: user_uuid
+        schema:
+          type: string
+      - name: complete
+        required: false
+        in: query
+        description: complete
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Survey'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Survey'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Survey'
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:write:'
+    delete:
+      operationId: destroySurvey
+      description: SurveyViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey.
+        schema:
+          type: string
+      - name: survey_template
+        required: false
+        in: query
+        description: survey_template
+        schema:
+          type: string
+      - name: user_uuid
+        required: false
+        in: query
+        description: user_uuid
+        schema:
+          type: string
+      - name: complete
+        required: false
+        in: query
+        description: complete
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - surveys
+      security:
+      - auth-server:
+        - 'surveyor:surveys:write:'
+  /survey_templates/:
+    get:
+      operationId: listSurveyTemplates
+      description: SurveyTemplateViewSet
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SurveyTemplate'
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:read:'
+    post:
+      operationId: createSurveyTemplate
+      description: SurveyTemplateViewSet
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyTemplate'
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:write:'
+  /survey_templates/{id}/:
+    get:
+      operationId: retrieveSurveyTemplate
+      description: SurveyTemplateViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey template.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyTemplate'
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:read:'
+    put:
+      operationId: updateSurveyTemplate
+      description: SurveyTemplateViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey template.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyTemplate'
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:write:'
+    patch:
+      operationId: partialUpdateSurveyTemplate
+      description: SurveyTemplateViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey template.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SurveyTemplate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SurveyTemplate'
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:write:'
+    delete:
+      operationId: destroySurveyTemplate
+      description: SurveyTemplateViewSet
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this survey template.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - survey-templates
+      security:
+      - auth-server:
+        - 'surveyor:survey_templates:write:'
+  /api-token-auth/:
+    post:
+      operationId: createAuthToken
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+      tags:
+      - api-token-auth
+components:
+  schemas:
+    Survey:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        survey_url:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        answers:
+          type: object
+          nullable: true
+        user_uuid:
+          type: string
+          format: uuid
+          nullable: true
+        complete:
+          type: boolean
+        survey_template:
+          type: string
+    SurveyTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          maxLength: 128
+        description:
+          type: string
+          nullable: true
+        json:
+          type: object
+        site:
+          type: integer
+          nullable: true
+      required:
+      - json
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - username
+      - password
