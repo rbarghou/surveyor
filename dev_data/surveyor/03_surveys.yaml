@@ -1,0 +1,44 @@
+- model: survey.survey
+  pk: 7b96a46e-b284-4ea2-b6bf-fa3207b9a8c1
+  fields:
+    created: 2020-11-05 15:13:49.356000+00:00
+    modified: 2020-11-09 14:48:52.953762+00:00
+    survey_template: e50c6ab9-0cd4-426e-8e77-1b2fcca4fb9b
+    answers:
+      question1: item2
+    user_uuid: null
+    complete: false
+- model: survey.surveytemplate
+  pk: e50c6ab9-0cd4-426e-8e77-1b2fcca4fb9b
+  fields:
+    created: 2020-11-05 14:19:40.913000+00:00
+    modified: 2020-11-05 22:27:29.239029+00:00
+    site: 1
+    name: Demo Survey
+    description: This is a very simple demo survey
+    json:
+      completedHtmlOnCondition:
+      - html: THANK YOU FOR SURVEY!
+      description: This is the Survey
+      pages:
+      - description: It's for safety.
+        name: page1
+        title: Please fill out the survey
+        visibleIf: '{question1} = ''item2'''
+      - elements:
+        - choices:
+          - text: 'True'
+            value: item1
+          - text: 'False'
+            value: item2
+          correctAnswer: item1
+          isRequired: true
+          name: question1
+          requiredErrorText: You must drive safely!
+          title: I should drive safely
+          type: radiogroup
+        name: page2
+      - description: The end of the survey.
+        name: page3
+        title: This is the end
+      title: Hello!
